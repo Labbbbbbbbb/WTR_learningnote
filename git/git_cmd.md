@@ -77,6 +77,8 @@ ps.clone所用的url必须代表着一个仓库，普通网页是会报错的
 | 9. 删除分支                             | $ git branch -d [branch-name]                 |
 | 10. 删除远程分支                        | $ git push origin --delete [branch-name]      |
 
+*ps.checkout到之前的commit之后可能会出现head detached的情况，此时可以 `git checkout -b [branch-name] `**创建新分支，再 `git checkout main`(或其他什么分支)，总之就是借此回到已有的分支，然后就可以把刚建立的工具分支删掉了*
+
 ### **六、标签**
 
 | 1. 列出所有tag             | $ git tag                              |
