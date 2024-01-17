@@ -117,6 +117,41 @@ $git push -u origin main
 #用于将本地分支 main 的更新推送到远程分支 origin/main。在这个命令中，-u 参数指定了推送的分支，origin/main 是远程分支的名称。#
 ```
 
+从远程仓库复制文件到此电脑
+
+新建文件夹，开启git bash
+
+```
+git init
+git clone [remote address]  #若使用ssh出现读取不了的情况可以试一下http
+```
+
+ps.ssh可能会出现 以下问题
+
+```
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+可能是因为公钥没配好（？）
+
+ 取回远程仓库的变化时
+
+```
+git pull [remote] [branch] #remote即远程仓库的url，branch即要载入的分支
+```
+
+此时可能会出现 `fatal: refusing to merge unrelated histories `（此处使用的是http）
+
+> 原因是两个仓库不同而导致的，需要在后面加上--allow-unrelated-histories进行允许合并，即可解决问题
+
+> 如果还不能解决问题，就把本地的remote删除，重新git remote add添加远程仓库，再按上面的方法来，问题解决。
+
+可能出现conflict，此时需要commit的双方协商修改，解决conflict
+
+*Q：pull之后难道没有什么回退机制的吗？*
 
 ### **九、回退**
 

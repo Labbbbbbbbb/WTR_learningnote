@@ -30,7 +30,7 @@ Git 将远程 URL 与名称相关联，默认远程通常称为 `origin`
 git remote add origin <REMOTE_URL>
 ```
 
-这会将名称与 .`origin``REMOTE_URL`
+这会将名称与 .`origin``REMOTE_URL`建立联系
 
 您可以使用该命令更改远程的 URL。`git remote set-url`
 
@@ -46,9 +46,9 @@ git remote add origin <REMOTE_URL>
 
 克隆 URL 在所有存储库上都可用，无论可见性如何。 即使您位于防火墙或代理后面，克隆 URL 也可以工作。`https://``https://`
 
-当您在命令行上使用 HTTPS URL 访问远程仓库时，Git 将要求您提供 GitHub 用户名和密码。当 Git 提示您输入密码时，请输入您的个人访问令牌。或者，可以使用凭据帮助程序，例如 Git 凭据管理器。删除了 Git 的基于密码的身份验证，转而采用更安全的身份验证方法。有关详细信息，请参阅“管理个人访问令牌”。`git clone``git fetch``git pull``git push`
+当您在命令行上使用 HTTPS URL 访问远程仓库时，Git 将要求您提供 GitHub 用户名和密码。当 Git 提示您输入密码时，请输入您的个人访问令牌。或者，可以使用凭据帮助程序，例如 Git 凭据管理器。删除了 Git 的基于密码的身份验证，转而采用更安全的身份验证方法。有关详细信息，请参阅“[管理个人访问令牌](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)”。`git clone``git fetch``git pull``git push`
 
-如果要访问使用 SAML SSO 的组织，并且使用个人访问令牌（经典），则还必须在进行身份验证之前授权个人访问令牌访问组织。有关详细信息，请参阅“关于使用 SAML 单点登录进行身份验证”和“[授权个人访问令牌以用于 SAML 单点登录](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on)”。[](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on)
+如果要访问使用 SAML SSO 的组织，并且使用个人访问令牌（经典），则还必须在进行身份验证之前授权个人访问令牌访问组织。有关详细信息，请参阅"[About authentication with SAML single sign-on](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on)"和“[授权个人访问令牌以用于 SAML 单点登录](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/authorizing-a-personal-access-token-for-use-with-saml-single-sign-on)”。[](https://docs.github.com/en/authentication/authenticating-with-saml-single-sign-on/about-authentication-with-saml-single-sign-on)
 
  **提示** ：
 
