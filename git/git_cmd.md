@@ -107,6 +107,17 @@ ps.clone所用的url必须代表着一个仓库，普通网页是会报错的
 | 5. 上传指定分支到远程仓库               | $ git push [remote] [branch]             |
 | 6. 推送所有分支到远程仓库               | $ git push [remote] --all                |
 
+创建新的远程仓库的指令：
+
+```
+$git remote add origin [remote address]  #常用于将本地仓库与远程仓库进行链接，以便可以同步远程仓库的内容。
+$git branch -M main  
+#git branch -M main 命令会将本地分支 main 重命名为 main,相当于在本地分支 main 上执行了一个 git branch 命令，这个命令会将当前分支名称设置为 main,并将本地分支 main 与远程分支 main 保持一致。#
+$git push -u origin main
+#用于将本地分支 main 的更新推送到远程分支 origin/main。在这个命令中，-u 参数指定了推送的分支，origin/main 是远程分支的名称。#
+```
+
+
 ### **九、回退**
 
 | 1. 恢复暂存区的指定文件到工作区                                       | $ git checkout [file]                                      |
@@ -137,3 +148,11 @@ ps.clone所用的url必须代表着一个仓库，普通网页是会报错的
 1）使用 `git`命令删除相应 `refs`文件，`git update-ref -d refs/remotes/origin/git/yousa/feature_01`
 
 2）简单粗暴强行 `git pull`，执行 `git pull -p`
+
+2.`git push`时 `! [rejected]        main -> main (non-fast-forward) error: failed to push some refs to 'https://github.com/Labbbbbbbbb/WTR_learningnote.git'`
+
+此时应先执行`git pull --rebase origin main `
+
+再重新`git push -u origin main`
+
+解决！
