@@ -20,11 +20,11 @@ command [-options] [parameter]
 比如
 
 ```
-ls -l /home/itheima
+ls -l /home/zyt_brain
 cp -r test1 test2
 ```
 
-ls为命令本身，-l是选项，/home/itheima是参数，即以列表形式显示/home/itheima目录内的内容
+ls为命令本身，-l是选项，/home/zyt_brain是参数，即以列表形式显示/home/zyt_brain目录内的内容
 
 cp为命令本身，-r是选项，test1 test2是参数，即复制文件夹test1成为test2
 
