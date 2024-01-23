@@ -57,7 +57,7 @@ sudo apt  install tree  # version 2.0.2-1
 4. spin循环节点
 5. 关闭客户端库
 
-**几种编程思想：oop，pop**
+**几种编程思想：OOP(面向对象，如c++)，POP(面向过程，如c语言)，FP(函数式思想)**
 
 ## 使用非oop方法编写第一个节点并测试
 
@@ -67,9 +67,9 @@ sudo apt  install tree  # version 2.0.2-1
 
 ```
 import rclpy
-from rclpy.node import node    #一二两句即导入库文件（ros2&python接口库）
+from rclpy.node import Node    #一二两句即导入库文件（ros2&python接口库）
 
-def main(args=None)
+def main(args=None):
   
     rclpy.init(args=args)       #初始化客户端
     node=Node("lisi")           #新建一个节点(此处的起节点名即是后面用node list查询时会看到的)
@@ -82,9 +82,9 @@ def main(args=None)
 ```
 #加入节点内容
 import rclpy
-from rclpy.node import node  
+from rclpy.node import Node  
 
-def main(args=None)
+def main(args=None):
   
     rclpy.init(args=args)   
     lisi_node=Node("lisi")   
@@ -121,7 +121,7 @@ entry_points={
 
 ### 编译
 
-如果已经下载了colcon，则直接输入 `colcon build`
+如果已经下载了colcon，则在***工作空间根目录下(一定要注意！***)直接输入 `colcon build`
 
 如果还没有：
 
@@ -129,3 +129,92 @@ entry_points={
 sudo apt-get install python3-colcon-common-extensions 
 colcon build
 ```
+
+> ps.此处ros2官方可能会自带一些bug，如果出现 `SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools. `可能是因为setuptools版本过高，可以尝试回到home目录输入pythpn3，按如下步骤查看版本
+>
+> ![1706010524892](image/手搓python节点/1706010524892.png)
+>
+> 版本过高时使用命令 `pip uninstall setuptools-[自己的版本号]`将高版本setuptools卸载；
+>
+> 使用命令`pip install setuptools==58.2.0`安装指定较低版本setuptools
+>
+> 重复步骤一可查看是否重新安装，成功后***回到工作空间根目录colcon build***
+>
+> 当然my说不重下也可以，如果能顺利编译生成可执行文件让节点跑起来就忽略这一段
+
+
+
+最后要记得***source***一下，让系统能找到包和文件 （！）
+
+```
+source install/setup.bash
+```
+
+### 运行
+
+编译配置等工作都完成了就可以来运行这个节点噜 
+
+```
+ros2 run village_li lisi_node
+```
+
+节点跑起来后按ctrl+c可以退出，在退出以前都可以用list指令查看到该节点：
+
+按ctrl+shift+5可以在vc中切出新终端，`ros2 node list`即可看到已经启动的节点
+
+然后通过 `ros2 node info /lisi`可以查看节点的一些具体信息，如话题，服务，动作，参数等等（要注意加上前面的斜杠/）,效果如图
+
+```
+zyt_brain@zhanyt:~/dev_ws02$ ros2 node info /lisi
+/lisi
+  Subscribers:
+
+  Publishers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+  Service Servers:
+    /lisi/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /lisi/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /lisi/get_parameters: rcl_interfaces/srv/GetParameters
+    /lisi/list_parameters: rcl_interfaces/srv/ListParameters
+    /lisi/set_parameters: rcl_interfaces/srv/SetParameters
+    /lisi/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+```
+
+## 使用OOP思想进行编程
+
+### oop介绍
+
+从“面向过程”到“面向对象”的思想转变，可以简单地理解为将原有的一个个步骤看作一个对象的属性与行为的组合，即先将“对象”所具有的参数先封装成一个整体，而过程的实现是通过对对象的调用来完成的。
+
+一对重要概念：类与对象，类是对象的抽象化，对象是类中的个体，是类的具体化
+
+三个重要特性：封装，继承与多态。其中封装指将属性和行为封装在一起，而对象=属性+行为。
+
+面向对象的编程更加工程化，更具移植性与拓展性
+
+### 使用oop思想重构节点代码
+
+```
+import rclpy
+from rclpy.node import Node     #同样，导入接口库
+
+class WriterNode(Node):         #设李四是一个作家，则可以创建一个作家节点的类
+    def __init__(self,name):    #定义初始化函数
+        super().__init__(name)  #super表示父类的初始化
+        self.get_logger().info("大家好，我是一名作家")  #self代指自身，即这个类所创建出的节点
+
+def main(args=None):
+  
+    rclpy.init(args=args)   
+    lisi_node=WriterNode("lisi")   #新建类型不再是一般的节点，而是刚定义好的类
+    rclpy.spin(lisi_node)  
+    rclpy.shutdown()  
+```
+
+Done!	如果是初始编写，也不要忘记在setup.py里指路和source！
