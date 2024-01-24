@@ -107,12 +107,16 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 功能包中如果有其他类型的接口文件以及依赖也是放在这里，举例：
 
 ```
+find_package(rosidl_default_generators REQUIRED)
+find_package(geometry_msgs REQUIRED)
+# 添加下面的内容
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/RobotPose.msg"
   "msg/RobotStatus.msg"
   "srv/MoveRobot.srv"
-  DEPENDENCIES geometry_msgs     #依赖；因为borrow_money.srv中定义的都是基本的数据类型，不需要添加其他的依赖
+  DEPENDENCIES geometry_msgs	#依赖；因为borrow_money.srv中定义的都是基本的数据类型，不需要添加其他的依赖
 )
+'''以及如果这里添加了DEPENDENCIES,记得在上面还需要加上find_package()'''
 ```
 
 ### 修改 package.xml
@@ -138,6 +142,7 @@ colcon build --packages-select village_interfaces
 
 编译完成之后再source一下，然后就可以通过 `ros2 interface list`找到自己创建的接口包啦
 
+> sos：cmake不知道出了什么毛病，这里编译过不了。。故以下的码都暂时没有严谨测试过。
 
 ## Python服务端代码
 
@@ -221,5 +226,67 @@ def main(args=None):
 
 ```
 
+然后就可以进行服务端通信测试啦
+
+回到工作空间根目录 `colcon build --packages-select village_li`然后 `source install/setup.bash`,然后启动lisi_node节点
+
+当前没有客户端，故需要手动调用服务（充当客户端发出请求）：开启另一个终端，然后注意要先 `source install/setup.bash`一下，再运行 `ros2 service call /borrow_money village_interfaces/srv/borrow_money "{name: 'zyt', money: 6}"` 不然会找不到！
 
 ## Python客户端代码
+
+一般步骤：
+
+* 导入服务接口
+* 创建请求结果接受回调函数
+* 声明并创建客户端
+* 编写结果接受逻辑
+* 调用客户端发送请求
+
+李三作为借钱服务的客户端来跟李四借钱：新建lisan_node
+
+第一步和服务端相同，都要导入服务端接口，添加依赖，但因为lisi和lisan都在一个包里，所以此时不需要重新修改village_li的package.xml (但是不要忘了setup.py噢)
+
+代码：
+
+```
+import rclpy
+from rclpy.node import Node
+from village_interfaces.srv import borrow_money   #导入服务接口
+
+class BaiPiaoNode(Node):
+    def __init__(self,name):
+        super().__init__(name)
+        self.get_logger().info("大家好，我是白嫖怪！")
+        self.borrow_client=self.create_client(borrow_money,"borrow_money")    #声明并创建客户端
+
+    def borrow_reponse_callback(self,response): #编写客户端请求结果接收回调函数
+        result=response.result()
+        if result.success:
+            self.get_logger().info('借到钱力！一共有%d元！'%result.money)
+        else:
+            self.get_logger().info('寄')
+
+    def borrow_request(self,money=10):        #编写发布请求所用的函数
+        self.get_logger().info('我来借钱啦，要%d元'%money)
+        while not self.borrow_client.wait_for_service(1.0):     #用循环确认服务是否在线，等待时长一秒钟。。增强程序稳定性
+            self.get_logger().warn("服务不在线，我再等等")
+        #若成功跳出了循环：
+        request=borrow_money.Request()
+        request.name=self.get_name()
+        request.money=money                                 #发送之后lisi就能拿到这里的request信息
+
+
+self.borrow_client.call_async(request).add_done_callback(self.borrow_reponse_callback)  #异步，调用回调函数(注意本句是和上面的几句request.对齐的，格式原因可能看不出来)
+
+def main(args=None):
+    rclpy.init(args=args) # 初始化rclpy
+    lisan_node = BaiPiaoNode("lisan")  # 新建一个节点
+    lisan_node.borrow_request()        #调用函数发送客户端请求！！
+    rclpy.spin(lisan_node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+
+```
+
+然后进行客户端测试
+
+build--->source--->run lisi_node and lisan_node      done!
