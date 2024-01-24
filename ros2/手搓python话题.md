@@ -151,3 +151,43 @@ ros2 topic pub /sexy_girl_money std_msgs/msg/UInt32 "{data: 10}" -1  (只发一�
 ```
 
 ## 其他人来订阅李四发布的小说话题
+
+一个王五来订阅了李四的小说：
+
+```
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+
+class NodeSubscribe02(Node):
+    def __init__(self,name):
+        super().__init__(name)
+        self.get_logger().info("大家好，我是%s!" % name)
+        # 创建订阅者
+        self.command_subscribe_ = self.create_subscription(String,"sexy_girl",self.command_callback,10)
+
+    def command_callback(self,msg):
+      
+        self.get_logger().info(f'看到了[{msg.data}]章节')
+
+def main(args=None):
+    rclpy.init(args=args) # 初始化rclpy
+    wangwu_node = NodeSubscribe02("wangwu")  # 新建一个节点
+    rclpy.spin(wangwu_node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
+```
+
+***注意创建了新节点之后要在setup.py中添加指引：***
+
+```
+entry_points={
+        'console_scripts': [
+            "lisi_node=village_li.lisi:main",     ###千万注意这里有一个逗号！！！
+            "wangwu_node=village_li.wangwu:main"
+        ],
+    },
+```
+
+然后build&souce
+
+至此就可以同时run两个节点，观察话题的发布和订阅啦!
