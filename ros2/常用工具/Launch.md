@@ -113,3 +113,6 @@ setup(
 当然如果是ament_cmake类型的功能包，配置方法也是不一样的，但是这里可以不用管噜
 
 然后运行时可以直接用命令行运行这个封装好的launch文件，就可以优雅地跑节点啦
+
+
+除此之外，如果想用launch文件配置参数，只需要在节点对象的 `executable=xxx`的下一行继续添加 `parameters=[{'<param_name>': param_val}]`即可修改参数值
