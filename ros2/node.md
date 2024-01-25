@@ -102,6 +102,19 @@ ros2 run <package_name> <executable_name>
 
 如 ros2 run learning_node node_helloworld 是learning_node文件夹下的node_helloworld.py文件所写的节点
 
+典中典之体验小乌龟模拟器
+
+```
+ros2 run turtlesim turtlesim_node
+```
+
+再打开一个终端启动键盘
+
+```
+ros2 run turtlesim turtle_teleop_key
+```
+
+
 ## 节点间的通信
 
 **节点间交互的方式包括话题（topics），服务（services），动作（action），参数（parameter），其中最重要的就是话题**
@@ -508,7 +521,6 @@ def main(args=None):                             # ROS2节点主入口main函数
 
 ### 动作：完整行为的流程管理
 
-
 机器人是一个复杂的智能系统，并不仅仅是键盘遥控运动、识别某个目标这么简单，我们需要实现的是送餐、送货、分拣等满足具体场景需求的机器人。
 
 在这些应用功能的实现中，另外一种ROS通信机制也会被常常用到——那就是 **动作** 。从这个名字上就可以很好理解这个概念的含义，这种通信机制的目的就是便于 **对机器人某一完整行为的流程进行管理** 。
@@ -527,7 +539,7 @@ OK，现在我们需要的是一个反馈，比如每隔1s，告诉我们当前�
 
 动作和服务类似，使用的也是客户端和服务器模型，客户端发送动作的目标，想让机器人干什么，服务器端执行动作过程， 控制机器人达到运动的目标，同时周期反馈动作执行过程中的状态。
 
-![image8](https://book.guyuehome.com/ROS2/2.%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image/2.7_%E5%8A%A8%E4%BD%9C/image8.gif)
+![1706184138967](image/node/1706184138967.png)
 
 客户端发送一个运动的目标，想让机器人动起来，服务器端收到之后，就开始控制机器人运动，一边运动，一边反馈当前的状态，如果是一个导航动作，这个反馈可能是当前所处的坐标，如果是机械臂抓取，这个反馈可能又是机械臂的实时姿态。当运动执行结束后，服务器再反馈一个动作结束的信息。整个通信过程就此结束。
 
@@ -675,7 +687,7 @@ class MoveCircleActionServer(Node):
 
         goal_handle.succeed()                           # 动作执行成功
         result = MoveCircle.Result()                    # 创建结果消息
-        result.finish = True                          
+        result.finish = True                        
         return result                                   # 反馈最终动作执行的结果
 
 def main(args=None):                                    # ROS2节点主入口main函数
@@ -784,7 +796,6 @@ $ ros2 action send_goal <action_name> <action_type> <action_data>   # 发送服�
 ![image-20220528005935269](https://book.guyuehome.com/ROS2/2.%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/image/2.7_%E5%8A%A8%E4%BD%9C/image-20220528005935269.png)
 
 ### 参数：机器人系统的全局字典
-
 
 类似C++编程中的全局变量，可以便于在多个程序中共享某些数据，**参数是ROS机器人系统中的全局字典，可以运行多个节点中共享数据。**
 
