@@ -35,3 +35,16 @@ git checkout -b <branch_name>
 ```
 git checkout main
 ```
+
+
+### 融合分支
+
+在某一分支上 `git merge <another_branch_name>`即将另一分支所作的更改融合到本分支上
+
+可能会出现 `conflict`导致 `unmerged`
+
+![1706305105044](image/git_learn/1706305105044.png)
+
+此时可以自行选择要采用哪一方的更改，或者共同比较更改之后再写入
+
+注意这里的merge只是会将所选择的改动写入当前分支并成为新的 `uncommitted changes`，并不会影响那个 <`another_branch_name`>，后续也仍然可以通过 `checkout`来到那个分支
