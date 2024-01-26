@@ -24,7 +24,7 @@ rqt
 
 introspection中的Node Graph :观察节点关系和消息走向
 
-    Process Monitor:进程监测
+Process Monitor:进程监测
 
 Topics中的Message Publisher:用图形化界面模拟发布消息，不需要cli手搓
 
