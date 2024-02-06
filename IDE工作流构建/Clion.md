@@ -61,3 +61,21 @@ adapter speed 10000
 ![1707151152471](image/oled/1707151152471.png)
 
 至此IDE的配置搞定，可以快乐地写代码噜（喜
+
+# 添加文件
+
+在clion中添加文件时最好另外新建一个跟core同级的文件夹User，在User下新建Inc和Src两个文件夹，将自己的.h/.c文件放在其中，并且在cmakelist.txt中引用：
+
+在52行最后添加 `User/Inc`，如下所示
+
+```
+include_directories(Core/Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F1xx/Include Drivers/CMSIS/Include User/Inc)
+```
+
+在56行最后添加 `"User/Src/*.*"` ，如下所示
+
+```
+file(GLOB_RECURSE SOURCES "Core/*.*" "Drivers/*.*" "User/Src/*.*")
+```
+
+如果新文件弹出了任何”添加到目标“的选项  **不要点 千万不要点**  否则会找不到应有的路径。
