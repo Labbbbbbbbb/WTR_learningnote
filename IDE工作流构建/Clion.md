@@ -78,4 +78,8 @@ include_directories(Core/Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_
 file(GLOB_RECURSE SOURCES "Core/*.*" "Drivers/*.*" "User/Src/*.*")
 ```
 
-如果新文件弹出了任何”添加到目标“的选项  **不要点 千万不要点**  否则会找不到应有的路径。
+修改完cmakelist之后要重新加载才能真正联动文件（否则虽然不会报错但是洞察就不能用了） 点击这个自动弹出的小框框就好噜
+
+![1707328094011](image/Clion/1707328094011.png)
+
+如果新文件弹出了任何”添加到目标“的选项（亦如上图）  **不要点 千万不要点**  否则会找不到应有的路径。
