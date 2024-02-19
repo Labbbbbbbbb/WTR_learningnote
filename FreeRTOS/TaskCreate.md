@@ -29,11 +29,13 @@
 
 然后就可以直接在上图的任务函数中敲执行代码了！
 
-这里注意一下如果是像cyt靴长一样使用弱定义，可以另建User文件夹来复写任务函数；是Default的话就直接在freertos.c中写。main不需要自行添加与freertos有关的东西！（当然如果用了其他外设什么的一些初始化函数还是需要在main里写的）
+这里注意一下如果是像cyt靴长一样使用弱定义，可以另建User文件夹来复写任务函数；是Default的话就直接在freertos.c中写。main中不需要自行添加与freertos有关的东西！（如果用了其他外设什么的一些初始化函数或者是定义什么变量可以写在main里，也可以视情况写在某个任务的死循环之前）
 
 ---
 
 # 关于API
+
+### 创建任务
 
 （借鉴[知乎](https://zhuanlan.zhihu.com/p/514869870)）
 
@@ -170,7 +172,6 @@ osThreadNew()的三个参数：
 					StaticTask_t * const pxTaskBuffer )
 ```
 
-
 **xTaskCreate()与 xTaskCreateStatic()的区别：**
 
 **xTaskCreate是操作系统自动分配内存，xTaskCreateStatic是需要程序员手动定义内存。**
@@ -180,3 +181,50 @@ osThreadNew()的三个参数：
 · 使用静态方法创建任务（xTaskCreateStatic）的时候需要将宏 configSUPPORT_STATIC_ALLOCATION 设为1
 
 宏定义位置Core/Inc/ FreeRTOSConfig.h
+
+### 延时函数
+
+freertos原装函数：
+
+```
+/**
+  * @brief 相对延时函数
+  * @param xTicksToDelay  systick系统节拍数(一般为1ms)
+  */
+void vTaskDelay( const TickType_t xTicksToDelay );
+
+/**
+  * @brief 绝对延时函数
+  * @param pxPreviousWakeTime 保存上次唤醒时间的指针,使用xTaskGetTickCount()获得
+  * @param xTimeIncrement 周期循环时间。当时间等于(*pxPreviousWakeTime + xTimeIncrement)时，任务解除阻塞。如果不改变参数xTimeIncrement的值，调用该函数的任务会按照固定频率执行。
+  */
+void vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement);
+```
+
+cmsis函数：
+
+```
+/**
+ * @brief 相对延时函数
+ * @param ticks  延迟时间(systicks数)
+ * /
+osStatus_t osDelay (uint32_t ticks);
+
+/**
+ * @brief 绝对延时函数
+ * @param ticks  延迟时间(systicks数)
+ * /
+osStatus_t osDelayUntil (uint32_t ticks);
+```
+
+> 两者的关系--->[RTX5 | 时间延时](https://blog.csdn.net/wallace89/article/details/117933438)
+>
+> 总的来说，`osDelayUntil`从 `osKernelGetTickCount（）`中获取绝对时间，实现绝对延时；
+
+freertos的程序**不能使用HAL_Delay**！原因是其与freertos的延迟作用是不同的
+
+> HAL_Delay是由ST提供的STM32 Cube HAL库中的一个函数，通常用于在STM32微控制器上实现简单的延时。HAL_Delay函数使用系统时钟来进行延时，并且在延时期间会阻塞整个处理器，也就是说，它会使处理器暂时停止执行其他任务和代码。
+>
+> 在开始运行线程之前，线程A、B处于就绪态，由于线程A优先级比线程B高，FreeRTOS任务控制器优先选择线程A运行，此时线程A进入运行态。随后线程A打印A，然后被HAL_Delay函数"阻塞"，注意此时的"阻塞"并不意味着程序进入了阻塞态，由于HAL_Delay阻塞的是整个处理器，因此FreeRTOS无法进行其他线程的调度，也就是说，HAL_Delay同时阻塞了线程B。当HAL_Delay函数运行结束后，线程A重回就绪态，由于线程A优先级比线程B高，FreeRTOS任务控制器优先选择线程A运行，循环往复，线程B不被执行
+>
+> -->[FreeRTOS中osDelay和HAL_Delay的区别](https://blog.csdn.net/m0_59766260/article/details/134098825)
