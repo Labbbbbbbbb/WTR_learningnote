@@ -1,3 +1,5 @@
+
+
 ## 终端是什么
 
 ### 终端与Shell？Bash？
@@ -6,13 +8,11 @@
 
 在linux上的黑窗口就是终端 ，终端里面 内嵌了一个shell，这个shell 我们将其称为**命令解释器** 。 当我们在终端输入一些字符串的时候，shell就会解析这些字符串，然后给我们反馈结果。
 
->
 > 终端 只是人机交互的一个接口，提供输入输出命令的交互界面。终端的主要任务是接收用户输入的命令，并提交给 Shell。
 >
->     Shell 是命令解析器，主要任务是翻译命令。Shell 将终端输入的命令转化成内核能够理解的语言并传递给内核，由内核执行命令，并将执行结果返回给终端。(Shell是一层壳，内核Kernal的壳)
+> Shell 是命令解析器，主要任务是翻译命令。Shell 将终端输入的命令转化成内核能够理解的语言并传递给内核，由内核执行命令，并将执行结果返回给终端。(Shell是一层壳，内核Kernal的壳)
 >
->     当我们打开终端时，Shell 也会自动启动，操作系统会将终端和 Shell 关联起来。接着我们在终端输入命令，Shell 就负责解释命令
->
+> 当我们打开终端时，Shell 也会自动启动，操作系统会将终端和 Shell 关联起来。接着我们在终端输入命令，Shell 就负责解释命令
 
 shell有很多种，比如**bash**, z shell, powershell(微软)
 
@@ -39,9 +39,3 @@ $ gnome-terminal
 就可以打开一个新的终端，，这个命令还有一些其他参数，，不过不重要()
 
 **除了gnome，还有很多其他的终端模拟器，比如 Terminator，Guake , alacritty等等**
-
-##### 下载alacritty
-
-官网[Alacritty - A cross-platform, OpenGL terminal emulator](https://alacritty.org/)，，虚拟机不知道为什么登不上去，，，
-
-（wait
