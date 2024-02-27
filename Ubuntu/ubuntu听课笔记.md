@@ -1,5 +1,7 @@
 电控培训听课笔记，指路lyn学长的github
 
+https://github.com/lynliam/note/blob/main/WTR-EC/Ubuntu.md
+
 ## 查看目录的工具
 
 ```
@@ -100,13 +102,11 @@ chgrp [groop] [dir/file]   //必要时加sudo提权
 chown [owner] [dir/file]
 ```
 
-
 使用 `file` 命令可以查看文件的一些属性：`file [name_of_file]`
 
 因为linux不依赖文件拓展名去识别文件，所以有的时候需要专门的查询命令来判断这是一个什么东西
 
 ![1708877796714](image/ubuntu听课笔记/1708877796714.png)--->bash script
-
 
 ## 文本编辑器
 
@@ -115,8 +115,6 @@ gedit，vim，nano等
 gedit其实还挺好用的（)
 
 vim：---->出门下拐
-
-
 
 ## 终端与SHELL
 
@@ -136,8 +134,6 @@ vim：---->出门下拐
 
 ---
 
-
-
 ## 补充
 
 重新编辑了一下.yml文件，，把shell那一句顶格了，重新转成.toml后得到了：
@@ -147,8 +143,6 @@ vim：---->出门下拐
 但是alacritty里面鼠标还是无法显示捏
 
 ---
-
-
 
 鼠标后续：
 
