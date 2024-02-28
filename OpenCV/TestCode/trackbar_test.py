@@ -9,7 +9,7 @@ mode = True
 ix,iy = -1,-1
 
 def trackbar_callback():
-    pass                    #滑动条的回调函数基本可以不用管，pass掉就好
+    pass                    #此处的滑动条的回调函数可以不用做什么，pass掉就好
 
 cv2.createTrackbar('R','image',0,255,trackbar_callback)     #创建滑动条
 cv2.createTrackbar('B','image',0,255,trackbar_callback)
