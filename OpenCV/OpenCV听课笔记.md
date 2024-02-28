@@ -2,35 +2,42 @@ opencv听课笔记，详情见[SSC202学长的github](https://github.com/SSC202/
 
 ## 安装
 
-#### Anaconda环境
+#### Conda环境
 
-官网https://www.anaconda.com/ 下载anaconda的linux版，然后在命令行输入：
+Windows可以去老登西的github找anaconda下载方法，ubuntu直接下miniconda：
+
+[官网点我](https://docs.anaconda.com/free/miniconda/)
+
+命令行下载：（ps这里的第二三行是同一条命令来的只是显示问题，wget那一条非常长)
 
 ```
-bash ~/Downloads/Anaconda3-5.0.1-MacOSX-x86_64.sh
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
 ```
 
-(Downloads是自己放下载文件的位置）
+>  Let me explain what each command does:
+>
+> 1. `mkdir -p ~/miniconda3`: This command creates a directory named `miniconda3` in your home (`~`) directory. The `-p` option ensures that the command creates parent directories if they do not exist.
+> 2. `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh`: This command downloads the latest Miniconda installer script for Linux and saves it as `miniconda.sh` in the previously created `miniconda3` directory.
+> 3. `bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3`: This command executes the Miniconda installer script (`miniconda.sh`). The options used are:
+>
+>    - `-b`: Enables batch mode, which skips the user prompts and assumes default answers.
+>    - `-u`: Updates the existing installation if a previous version of Miniconda is detected.
+>    - `-p ~/miniconda3`: Specifies the target installation directory.
+> 4. `rm -rf ~/miniconda3/miniconda.sh`: This command removes the downloaded Miniconda installer script (`miniconda.sh`) after the installation is complete. The `-rf` options force the removal without prompting and recursively remove directories.
+>
+> After running these commands, you should have Miniconda installed in the `~/miniconda3` directory on your Linux system. Make sure to activate the Miniconda environment by running `source ~/miniconda3/bin/activate` or by adding the Miniconda `bin` directory to your system's `PATH` variable.
 
-注意首词bash也需要输入，无论是否用的Bash shell。
 
-看到 “Thank you for installing Anaconda3!" 的时候即下载完成
+下载完成之后，初始化bash和zsh
 
-关闭终端，然后再打开终端以使安装后的Anaconda启动。
+```
+~/miniconda3/bin/conda init bash
+~/miniconda3/bin/conda init zsh
+```
 
-验证安装结果。可选用以下任意一种方法：
-
-① 在终端中输入命令 ***conda list*** ，如果Anaconda被成功安装，则会显示已经安装的包名和版本号。(要重启终端才能看到！)
-
-![1708953301349](image/OpenCV听课笔记/1708953301349.png)
-
-② 在终端中输入 ***python*** 。这条命令将会启动Python交互界面，如果Anaconda被成功安装并且可以运行，则将会在Python版本号的右边显示“Anaconda custom (64-bit)”。退出Python交互界面则输入 ***exit()*** 或 ***quit()*** 即可。
-
-③ 在终端中输入 ***anaconda-navigator*** 。如果Anaconda被成功安装，则Anaconda Navigator的图形界面将会被启动。
-
-![1708953685082](image/OpenCV听课笔记/1708953685082.png)
-
-(但，，，汗)
 
 #### Opencv
 
@@ -53,6 +60,10 @@ cv2.imread('path',mode)
 
 img=cv2.imread('path',mode)   #创建图像对象
 ```
+
+返回的img是一个图像，是一个三维的 NumPy 数组，通常具有形状 (height, width, channels)，后面的frame同理
+
+
 
 显示图像：args=图像名，imread返回值
 
@@ -166,8 +177,6 @@ cv2.namedWindow('img')                      #创建窗口
 cv2.setMouseCallback('img',function_name)   #创建回调函数
 ```
 
-
-
 ## 滑动条
 
 滑动条创建函数：args=滑动条名字，滑动条被放置的窗口的名字，滑动条最小值，滑动条最大值，回调函数
@@ -183,8 +192,6 @@ cv2.createTrackbar()
 ```
 cv2.getTrackbarPos()
 ```
-
-
 
 ## 图像基本操作
 
@@ -208,7 +215,6 @@ cv2.imshow('img',roi)
 ```
 
 （不过摄像头能看到的地方一般都是我们的ROI)
-
 
 ### 通道分离与合并
 
