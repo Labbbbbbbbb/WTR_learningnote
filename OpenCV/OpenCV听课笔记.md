@@ -1,4 +1,4 @@
-opencv听课笔记，详情见[SSC202学长的github](https://github.com/SSC202/OpenCV/tree/main/OpenCV-Python/Note)
+opencv听课笔记，只是一个听课笔记，详情见[SSC202学长的github](https://github.com/SSC202/OpenCV/tree/main/OpenCV-Python/Note)
 
 ## 安装
 
@@ -253,6 +253,8 @@ cv2.addWeighted()
 
 ## 图像处理
 
+### 格式转换
+
 颜色空间转化函数(args = 待转换图像，转换格式（比如BGR，GRAY，HSV))
 
 ```
@@ -279,6 +281,13 @@ cv2.threshold()
 
 参数‘二值化方法’有 `cv2.THRESH_BINARY`，`cv2.THRESH_BINARY_INV` （简单阈值)
 
-自适应阈值化：
+自适应阈值化：（过于灵敏一般不用于识别)
 
 大津法阈值化：
+
+
+### 滤波算法
+
+图像之中经常有一些噪点噪声，需要通过滤波算法过滤噪点
+
+以及一系列完善图像形状的函数
