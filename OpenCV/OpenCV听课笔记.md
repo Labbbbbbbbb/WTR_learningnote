@@ -289,3 +289,44 @@ cv2.threshold()
 除此之外还有一系列形态学转换方法
 
 **处理图像的一般流程：转为灰度图(cvtColor)---->滤波(filter)---->二值化(threshold)---->形态学转换**
+
+
+### 轮廓检测
+
+提取轮廓(args = 二值化图像，轮廓检索模式（如 `cv2.RETR_TREE`)，轮廓近似方法（一般用 `cv2.CHAIN_APPROX_SIMPLE`))
+
+```
+contours, hierarchy = cv2.findContours(image,mode,method)
+```
+
+绘制轮廓(args = 原图像，轮廓，轮廓的索引，颜色（BGR)，线条宽度）
+
+```
+cv2.drawContours(image, contours, contourIdx, color, thickness=None, lineType=None, hierarchy=None, maxLevel=None, offset=None)
+```
+
+
+图像的矩
+
+```
+"""
+	图像矩求取函数
+	参数：边界
+	返回值：图像矩，使用['mij']索引进行特定图像矩的获取
+"""
+cv2.moments()
+```
+
+hu矩：
+
+```
+"""
+	轮廓相似度比较函数
+	第一个参数：原图像
+	第二个参数：进行匹配的图像
+	第三个参数：比较方式(int,填1即可)
+	第四个参数：double，填0.0即可
+	返回值：相似度，0为完全相似
+"""
+cv2.matchShapes()
+```

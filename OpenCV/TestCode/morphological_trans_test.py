@@ -16,7 +16,7 @@ while True:
     #res = cv2.dilate(img,kernel,iterations=5)      #膨胀
     #res = cv2.morphologyEx(img,cv2.MORPH_OPEN,kernel)  #开运算
     #res = cv2.morphologyEx(img,cv2.MORPH_CLOSE,kernel)  #闭运算
-    res = cv2.morphologyEx(img,cv2.MORPH_GRADIENT,kernel) #形态学梯度
+    res = cv2.morphologyEx(img,cv2.MORPH_GRADIENT,kernel) #形态学梯度，膨胀-腐蚀，约等于轮廓
 
     cv2.imshow('res',res)
     cv2.imshow('img',img)
