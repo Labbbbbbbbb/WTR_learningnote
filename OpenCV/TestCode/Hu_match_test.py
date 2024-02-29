@@ -34,6 +34,10 @@ while True:
     cv2.imshow('shape', shape)
     cv2.imshow('res', img)
     key = cv2.waitKey(1)
+    #计算面积的两种方法
+    #a1=cv2.contourArea(counter_shape[n])
+    #a2=cv2.moments(counter_shape[n])['m00']
+    #print(a1,a2)
     if key == 27:
         break
 
