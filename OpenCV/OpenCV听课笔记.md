@@ -17,7 +17,7 @@ bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 rm -rf ~/miniconda3/miniconda.sh
 ```
 
->  Let me explain what each command does:
+> Let me explain what each command does:
 >
 > 1. `mkdir -p ~/miniconda3`: This command creates a directory named `miniconda3` in your home (`~`) directory. The `-p` option ensures that the command creates parent directories if they do not exist.
 > 2. `wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh`: This command downloads the latest Miniconda installer script for Linux and saves it as `miniconda.sh` in the previously created `miniconda3` directory.
@@ -30,14 +30,12 @@ rm -rf ~/miniconda3/miniconda.sh
 >
 > After running these commands, you should have Miniconda installed in the `~/miniconda3` directory on your Linux system. Make sure to activate the Miniconda environment by running `source ~/miniconda3/bin/activate` or by adding the Miniconda `bin` directory to your system's `PATH` variable.
 
-
 下载完成之后，初始化bash和zsh
 
 ```
 ~/miniconda3/bin/conda init bash
 ~/miniconda3/bin/conda init zsh
 ```
-
 
 #### Opencv
 
@@ -62,8 +60,6 @@ img=cv2.imread('path',mode)   #创建图像对象
 ```
 
 返回的img是一个图像，是一个三维的 NumPy 数组，通常具有形状 (height, width, channels)，后面的frame同理
-
-
 
 显示图像：args=图像名，imread返回值
 
@@ -250,7 +246,6 @@ cv2.addWeighted()
 
 > merge和add的区别：merge是对一张图像的通道融合，add是对几张图像的像素进行叠加
 
-
 ## 图像处理
 
 ### 格式转换
@@ -285,9 +280,12 @@ cv2.threshold()
 
 大津法阈值化：
 
-
 ### 滤波算法
 
 图像之中经常有一些噪点噪声，需要通过滤波算法过滤噪点
 
-以及一系列完善图像形状的函数
+比如自定义滤波 `CV2.filter2D()` 和高斯滤波，中值滤波等等
+
+除此之外还有一系列形态学转换方法
+
+**处理图像的一般流程：转为灰度图(cvtColor)---->滤波(filter)---->二值化(threshold)---->形态学转换**
