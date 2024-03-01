@@ -376,3 +376,14 @@ cv2.approxPolyDP()
 ```
 cv2.minEnclosingCircle()
 ```
+
+最小外接圆识别标准是比较宽松的，还有另一个方法是霍夫圆识别法（较严)
+
+一般可以先用基尔霍夫识别法先测一测，如果测不出来再转而用最小外接圆
+
+
+轮廓的层次结构：父轮廓，子轮廓，同级轮廓
+
+OpenCV 的轮廓信息元组：`(Next, Previous, First_Child, Parent)`
+
+`fingcontours` 的第二个返回值 `hierarchy` 即反映了轮廓层次结构信息
