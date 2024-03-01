@@ -91,6 +91,9 @@ cv2.cvtColor('picture',mode)
 >
 > cv2.COLOR_BGR2GRAY 将BGR格式转换成灰度图片
 
+[Picture_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/picture_test.py)
+
+
 #### vedio-视频
 
 创建对象  参数为摄像头设备的索引号，电脑内置摄像头默认为第一个，即为0，其他依次顺延
@@ -117,6 +120,7 @@ cap.set(ID,val)
 ```
 cap.release()
 ```
+[Video_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/vedio_test.py)
 
 ## 绘图
 
@@ -148,6 +152,8 @@ cv2.putText()
 
 此外还有一些参数（类似宏定义的)比如 `cv2.LINE_AA`可以放在封闭曲线和cv2.line函数的最后一个参数（在前面已有参数之后再加上)表示让线条更平滑，也可以在cv2.putText()函数中用来表示字体粗细；`cv2.FONT_HERSHEY_SIMPLEX` 作为cv2.putText()的‘字体’的参数
 
+[draw_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/draw_test.py)
+
 ## 鼠标事件
 
 可以通过以下代码查看鼠标事件的种类
@@ -173,6 +179,12 @@ cv2.namedWindow('img')                      #创建窗口
 cv2.setMouseCallback('img',function_name)   #创建回调函数
 ```
 
+[mouse_event_test1_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/mouse_event_test.py)
+
+[mouse_event_draw_test2_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/mouse_draw_test.py)
+
+
+
 ## 滑动条
 
 滑动条创建函数：args=滑动条名字，滑动条被放置的窗口的名字，滑动条最小值，滑动条最大值，回调函数
@@ -188,6 +200,7 @@ cv2.createTrackbar()
 ```
 cv2.getTrackbarPos()
 ```
+[trackbar_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/trackbar_test.py)
 
 ## 图像基本操作
 
@@ -198,10 +211,13 @@ cv2.getTrackbarPos()
 ```
 px = img[x,y]
 ```
+[pixel_index_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/pixel_index_test.py)
 
 此处img为imread的返回值或cap.read的第二个返回值，即图像对象，img[x,y]表示对图像img进行相应坐标的索引（所以这并不是一个函数)
 
 获取图像属性：`img.shape` (依次返回行数，列数，通道数(rgb图像为三通道，灰度图像为单通道))和 `img.dtype` 返回图像数据类型
+
+[attr_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/img_attrib_test.py)
 
 截取“感兴趣的部分"：ROI.  即在整个图像上面通过索引的方式截取特定部分
 
@@ -211,6 +227,8 @@ cv2.imshow('img',roi)
 ```
 
 （不过摄像头能看到的地方一般都是我们的ROI)
+
+[ROI_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/img_ROI_test.py)
 
 ### 通道分离与合并
 
@@ -230,6 +248,8 @@ b, g, r = cv2.split(img)
 
 返回一整版的b,g,r二维数组（是的三组二维数组)
 
+[merge_and_split_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/merge_split_test.py)
+
 ### 图像的加运算
 
 加运算：
@@ -243,6 +263,7 @@ cv2.add()
 ```
 cv2.addWeighted()
 ```
+[add_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/add_test.py)
 
 > merge和add的区别：merge是对一张图像的通道融合，add是对几张图像的像素进行叠加
 
@@ -266,6 +287,8 @@ cv2.inRange()
 
 高于上限和低于下限的都会变成0（黑色)，在上下限之间的变成255（白色)，得到一个黑白的图
 
+[mask_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/mask_test.py)
+
 除此之外还有二值化函数，即像素值高于阈值则设为白/黑色，低于阈值则设为黑/白色                (args = 原图像，阈值，二值化最大值，二值化方法)，返回一个元组，第二个元素为处理后的图像
 
 ```
@@ -276,9 +299,12 @@ cv2.threshold()
 
 参数‘二值化方法’有 `cv2.THRESH_BINARY`，`cv2.THRESH_BINARY_INV` （简单阈值)
 
+[threshold_binary_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/binary_threshold.py)
+
 自适应阈值化：（过于灵敏一般不用于识别)
 
-大津法阈值化：
+大津法阈值化以及三角形法阈值化：
+[threshold_OTSU_TRIANGLE_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/OTSU_TRIANGLE_test.py)
 
 ### 滤波算法
 
@@ -286,9 +312,15 @@ cv2.threshold()
 
 比如自定义滤波 `CV2.filter2D()` 和高斯滤波，中值滤波等等
 
+[filter_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/filter_test.py)
+
 除此之外还有一系列形态学转换方法
 
 **处理图像的一般流程：转为灰度图(cvtColor)---->滤波(filter)---->二值化(threshold)---->形态学转换**
+
+[morphological](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/morphological_trans_test.py)
+
+[canny_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/canny_test.py)
 
 ### 轮廓检测
 
@@ -305,6 +337,7 @@ contours, hierarchy = cv2.findContours(image,mode,method)
 ```
 cv2.drawContours(image, contours, contourIdx, color, thickness=None, lineType=None, hierarchy=None, maxLevel=None, offset=None)
 ```
+[Contour_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/Contour_test.py)
 
 图像的矩
 
@@ -316,6 +349,7 @@ cv2.drawContours(image, contours, contourIdx, color, thickness=None, lineType=No
 """
 cv2.moments()
 ```
+[moments_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/moment_test.py)
 
 hu矩：
 
@@ -330,6 +364,7 @@ hu矩：
 """
 cv2.matchShapes()
 ```
+[Hu_moment_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/Hu_match_test.py)
 
 计算轮廓面积
 
@@ -367,7 +402,7 @@ cv2.arcLength()
 """
 cv2.approxPolyDP()
 ```
-
+[approxPolyDP_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/approxPolyDP_test.py)
 
 识别圆：
 
@@ -380,7 +415,7 @@ cv2.minEnclosingCircle()
 最小外接圆识别标准是比较宽松的，还有另一个方法是霍夫圆识别法（较严)
 
 一般可以先用基尔霍夫识别法先测一测，如果测不出来再转而用最小外接圆
-
+[circle_detect_test_code](https://github.com/Labbbbbbbbb/WTR_learningnote/blob/main/OpenCV/TestCode/circle_detect_test.py)
 
 轮廓的层次结构：父轮廓，子轮廓，同级轮廓
 
