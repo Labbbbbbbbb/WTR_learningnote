@@ -290,7 +290,6 @@ cv2.threshold()
 
 **处理图像的一般流程：转为灰度图(cvtColor)---->滤波(filter)---->二值化(threshold)---->形态学转换**
 
-
 ### 轮廓检测
 
 提取轮廓(args = 二值化图像，轮廓检索模式（如 `cv2.RETR_TREE`)，轮廓近似方法（一般用 `cv2.CHAIN_APPROX_SIMPLE`))
@@ -299,12 +298,13 @@ cv2.threshold()
 contours, hierarchy = cv2.findContours(image,mode,method)
 ```
 
+这里所得到的contours是一个元组，是image中所有轮廓组成的集合，可以使用索引方式去引用某一个特定的轮廓，可以使用 `len(contours)` 的方式获取轮廓的个数
+
 绘制轮廓(args = 原图像，轮廓，轮廓的索引，颜色（BGR)，线条宽度）
 
 ```
 cv2.drawContours(image, contours, contourIdx, color, thickness=None, lineType=None, hierarchy=None, maxLevel=None, offset=None)
 ```
-
 
 图像的矩
 
@@ -331,7 +331,6 @@ hu矩：
 cv2.matchShapes()
 ```
 
-
 计算轮廓面积
 
 ```
@@ -346,7 +345,6 @@ cv2.contourArea()
 
 求图像面积也是清除噪点的一种方式，可以认为面积小于一定值的轮廓就是一个噪点
 
-
 求得轮廓周长
 
 ```
@@ -356,4 +354,16 @@ cv2.contourArea()
 	第二个参数：闭合参数，True为闭合
 """
 cv2.arcLength()
+```
+
+用一个指定精度的多边形拟合边界
+
+```python
+"""
+	边界多边形拟合函数
+	第一个参数：轮廓
+	第二个参数：精度，原始图线和近似图线间的最大距离
+	第三个参数：闭合标志
+"""
+cv2.approxPolyDP()
 ```
