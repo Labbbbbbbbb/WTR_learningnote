@@ -25,3 +25,11 @@ while 1 :
     
 cap.release()
 cv2.desroyAllWindows()
+
+'''
+#一个比较科学的确定拟合精度的方法：
+
+epsilon = 0.001 * cv2.arcLength(contours[i])
+approx = cv2.approxPolyDP(contours[i],epsilon,True)
+
+'''

@@ -367,3 +367,12 @@ cv2.arcLength()
 """
 cv2.approxPolyDP()
 ```
+
+
+识别圆：
+
+最小外接圆函数(args = 轮廓，返回值 = (x,y),radius  (圆心+半径))
+
+```
+cv2.minEnclosingCircle()
+```
