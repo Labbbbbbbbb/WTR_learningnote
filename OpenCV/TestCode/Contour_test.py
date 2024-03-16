@@ -13,7 +13,7 @@ while(1):
     contours, hierarchy = cv2.findContours(res,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     cv2.drawContours(frame, contours,-1,(255,255,0),3)              #将轮廓叠加在原图像上
     cv2.imshow('frame',frame)
-    print(hierarchy)
+    #print(hierarchy)
     key = cv2.waitKey(1)
 
     if key == 27:

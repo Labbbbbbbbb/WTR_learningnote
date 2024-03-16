@@ -38,14 +38,11 @@ ros2 pkg create village_li --build-type ament_python --dependencies rclpy
 sudo apt  install tree  # version 2.0.2-1
 ```
 
-
-
 ## 创建节点文件
 
 在__init__.py同级别的目录下创建一个叫lisi.py的文件（用cmd或是直接在vc中右键创建均可）效果如图：
 
 ![1705999689646](image/手搓python节点/1705999689646.png)
-
 
 # 开始编写程序
 
@@ -93,8 +90,6 @@ def main(args=None):
     rclpy.shutdown()  
 ```
 
-
-
 ### 配置
 
 编写完成后，要想成功编译运行代码，还应进行一些配置，告诉ros2功能包，节点和入口函数的位置：
@@ -118,7 +113,6 @@ entry_points={
     },
 ```
 
-
 ### 编译
 
 如果已经下载了colcon，则在***工作空间根目录下(一定要注意！***)直接输入 `colcon build`
@@ -136,13 +130,11 @@ colcon build
 >
 > 版本过高时使用命令 `pip uninstall setuptools-[自己的版本号]`将高版本setuptools卸载；
 >
-> 使用命令`pip install setuptools==58.2.0`安装指定较低版本setuptools
+> 使用命令 `pip install setuptools==58.2.0`安装指定较低版本setuptools
 >
 > 重复步骤一可查看是否重新安装，成功后***回到工作空间根目录colcon build***
 >
 > 当然my说不重下也可以，如果能顺利编译生成可执行文件让节点跑起来就忽略这一段
-
-
 
 最后要记得***source***一下，让系统能找到包和文件 （！）
 
@@ -152,7 +144,7 @@ source install/setup.bash
 
 ### 运行
 
-编译配置等工作都完成了就可以来运行这个节点噜 
+编译配置等工作都完成了就可以来运行这个节点噜
 
 ```
 ros2 run village_li lisi_node
